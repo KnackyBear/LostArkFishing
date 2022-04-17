@@ -17,7 +17,7 @@ class LostArkFishing(QThread):
     bait_addConsume = 60 # energy added every time you catch a fish
     autorepairMod = 50 # number catch before try to repair
 
-    def __init__(self, fish_key='e', bait_key='q', energy=10500, autorepair=False, assetPath=None):
+    def __init__(self, fish_key='e', bait_key='d', energy=10500, autorepair=False, assetPath=None):
         super().__init__()
         self.screenWidth, self.screenHeight = pyautogui.size()
         self.state = 0
@@ -158,9 +158,11 @@ class LostArkFishing(QThread):
         if self.isUnderBaitBuff() == False:
             if self.startBaitTime == None:
                 self.startBaitTime = datetime.now()
+                elapsedTime = self.bait_buff_duration + 1
+            else:
+                elapsedTime = datetime.now() - self.startBaitTime
+                elapsedTime = elapsedTime.total_seconds()
 
-            elapsedTime = datetime.now() - self.startBaitTime
-            elapsedTime = elapsedTime.total_seconds()
             if elapsedTime > self.bait_buff_duration:
                 self.startBaitTime = datetime.now()
                 self.pressKey(self.bait_key)
@@ -205,9 +207,8 @@ class LostArkFishing(QThread):
                     if location != None:
                         time.sleep(random.uniform(0.25, 1.0))
                         self.pressKey(self.fish_key)
-                        time_wait = random.uniform(2, 4)
+                        time_wait = random.uniform(5, 5.5)
                         self.message(f"Fish caught! Wait {time_wait}s to cast again.")
-                        self.state = 0
                         time.sleep(time_wait)
                         self.currentEnergy = self.currentEnergy - 60
 
@@ -221,7 +222,9 @@ class LostArkFishing(QThread):
                         if self.currentEnergy < 60:
                             self.message("Low energy. Stopping bot now.")
                             self.terminated()
-                            break
+                        
+                        self.state = 0
+
 #def main():
 #    lostArkFishing = LostArkFishing()
 #    lostArkFishing.execute()
