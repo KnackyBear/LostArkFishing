@@ -48,7 +48,7 @@ jobs:
           prerelease: false
       - name: Make zip not war
         run: |
-          7z a -tzip LostArkFishing.zip .\dist\LostArkFishingUI.exe .\ressources\
+          7z a -tzip LostArkFishing.zip .\dist\LostArkFishingUI.exe .\resources\
       - name: Upload Release Asset
         id: upload-release-asset 
         uses: actions/upload-release-asset@v1
