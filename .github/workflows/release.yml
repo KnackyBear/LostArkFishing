@@ -24,9 +24,9 @@ jobs:
       - name: Display Python version
         run: python --version
       - name: Install requirements
-        run: pip install -r src/requirements.txt
+        run: pip install -r .\src\requirements.txt
       - name: Build binary
-        run: pyinstaller -F src/LostArkFishingUI.py
+        run: pyinstaller -F .\src\LostArkFishingUI.py
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
@@ -44,6 +44,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: dist/LostArkFishingUI.exe
+          asset_path: .\dist\LostArkFishingUI.exe
           asset_name: LostArkFishingUI-${{ github.event.inputs.version }}.exe
           asset_content_type: application/vnd.microsoft.portable-executable
