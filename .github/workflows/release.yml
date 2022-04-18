@@ -4,13 +4,13 @@ name: Release
 on:
   workflow_dispatch:
     inputs:
-      version_bump_type:
+      version:
         description: 'Version'
         required: true
         default: ''
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v2
