@@ -15,9 +15,8 @@ class LostArkFishing(QThread):
 
     bait_buff_duration = 900 # seconds
     bait_addConsume = 60 # energy added every time you catch a fish
-    autorepairMod = 50 # number catch before try to repair
 
-    def __init__(self, fish_key='e', bait_key='d', energy=10500, autorepair=False, assetPath=None):
+    def __init__(self, fish_key='e', bait_key='d', energy=10500, autorepair=False, roundrepair=50, assetPath=None):
         super().__init__()
         self.screenWidth, self.screenHeight = pyautogui.size()
         self.state = 0
@@ -27,6 +26,7 @@ class LostArkFishing(QThread):
         self.energy = energy
         self.currentEnergy = int(energy)
         self.autorepair = autorepair
+        self.autorepairMod = int(roundrepair)
         self.startBaitTime = None
         if assetPath is None:
             self.assetPath = f'resources/{self.screenHeight}'

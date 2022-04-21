@@ -43,20 +43,19 @@ class Windows(QWidget):
         self.txt_throw_bait_bind = TextEdit("Throw bait", width=25, textAlign=Qt.AlignHCenter, defaultValue="d")
         self.txt_energy = TextEdit("Energy", width=50, textAlign=Qt.AlignLeft, defaultValue="10500")
         self.chk_autorepair = QCheckBox("Auto repair", self)
+        self.txt_autorepair = TextEdit("Every", width=25, textWith=30, textAlign=Qt.AlignLeft, defaultValue="50")
 
         vbox = QVBoxLayout()
         vbox.addWidget(self.fb_asset)
 
-        hbox_opt = QHBoxLayout()
-        hbox_opt.addWidget(self.txt_float_fishing_bind)
-        hbox_opt.addWidget(self.txt_throw_bait_bind)
-        vbox.addLayout(hbox_opt)
+        gbox = QGridLayout()
+        gbox.addWidget(self.txt_float_fishing_bind, 1, 1)
+        gbox.addWidget(self.txt_throw_bait_bind, 1, 2, 1, 2)
+        gbox.addWidget(self.txt_energy, 2, 1)
+        gbox.addWidget(self.chk_autorepair, 2, 2)
+        gbox.addWidget(self.txt_autorepair, 2, 3, Qt.AlignLeft)
+        vbox.addLayout(gbox)
 
-        hbox_opt2 = QHBoxLayout()
-        hbox_opt2.addWidget(self.txt_energy)
-        hbox_opt2.addWidget(self.chk_autorepair)
-        hbox_opt2.addStretch()
-        vbox.addLayout(hbox_opt2)
 
         self.btnStart = QPushButton('Start')
         self.btnStop = QPushButton('Stop')
@@ -98,6 +97,7 @@ class Windows(QWidget):
                                      bait_key=self.txt_throw_bait_bind.getText(), 
                                      energy=self.txt_energy.getText(), 
                                      autorepair=self.chk_autorepair.isChecked(), 
+                                     roundrepair=self.txt_autorepair.getText(),
                                      assetPath=self.fb_asset.getFilePath())
         self.thread.loggerSignal.connect(self.on_thread_signal_logging)
         self.thread.endSignal.connect(self.stop)
