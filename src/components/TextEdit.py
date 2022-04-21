@@ -5,7 +5,7 @@ from PyQt5.QtWidgets import *
 import sys
 
 class TextEdit(QWidget):
-    def __init__(self, title, width=180, textAlign=Qt.AlignLeft, defaultValue=None):
+    def __init__(self, title, width=180, textAlign=Qt.AlignLeft, textWith=65, defaultValue=None):
         QWidget.__init__(self)
         layout = QHBoxLayout()
         layout.setContentsMargins(0, 0, 0, 0)
@@ -13,7 +13,7 @@ class TextEdit(QWidget):
         
         self.label = QLabel()
         self.label.setText(title)
-        self.label.setFixedWidth(65)
+        self.label.setFixedWidth(textWith)
         self.label.setFont(QFont("Arial",weight=QFont.Bold))
         self.label.setAlignment(Qt.AlignLeft | Qt.AlignVCenter)
         layout.addWidget(self.label)
